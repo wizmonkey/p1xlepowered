@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>buh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body class="bg-dark">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">buh</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input id="searchNav" class="form-control me-2" type="search" placeholder="Search for games"
+                        aria-label="Search" />
+                    <button class="btn btn-outline-success" type="submit">
+                        Search
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-3">
+        <div class="bg-warning p-2 rounded-1">
+            <div id="" class="d-flex align-items-center">
+                <img src="assets/avatar.jpeg" class="img-fluid profile-image" alt="...">
+                <div class="ms-3">
+                    <strong class="fs-3">p1xLe</strong>
+                    <br>
+                    <a href="https://steamcommunity.com/id/_p1xLe/" target="_blank">
+                        <i class="bi bi-steam" style="font-size: 1.2rem; color: #000000;"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="d-flex mt-2 flex-wrap">
+                <div class="m-1"><button class="btn btn-dark stat-btn">1 playing</button></div>
+                <div class="m-1"><button class="btn btn-dark stat-btn">1 complete</button></div>
+                <div class="m-1"><button class="btn btn-dark stat-btn">1 backlog</button></div>
+                <div class="m-1"><button class="btn btn-dark stat-btn">1 replayed</button></div>
+                <div class="m-1"><button class="btn btn-dark stat-btn">1 wishlist</button></div>
+            </div>
+
+        </div>
+        <!-- <hr style="color: #fff;"> -->
+        <div id="responseTabs" class="">
+            <div class="d-flex">
+                <ul class="nav mb-3 nav-links" id="tab" role="tablist">
+                    <li class="nav-item fw-semibold" role="presentation">
+                        <button class="nav-link nav-res active" id="pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                            aria-selected="true">Profile</button>
+                    </li>
+                    <li class="nav-item fw-semibold" role="presentation">
+                        <button class="nav-link nav-res" id="pills-profile-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                            aria-selected="false">List</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+                <!-- profile -->
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+                    tabindex="0">
+                    <div class="d-flex justify-content-between res-actions">
+
+                        <div class="game-cards">
+                            <div class="playing">
+                                <h4 class="text-light">Currently Playing</h4>
+                                <div class="row row-cols-2 g-3">
+                                    <div class="col">
+                                        <div class="card mb-3 bg-warning rnd p-1" style="max-width: 540px;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="https://picsum.photos/200/300"
+                                                        alt="Trendy Pants and Shoes" class="img-fluid rnd" />
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Ghost of Tsushima</h5>
+                                                        <span><i class="bi bi-steam"
+                                                                style="font-size: 1.2rem; color: #000000;"></i></span>
+                                                        <p class="card-text">started 22 May</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card mb-3 bg-danger rnd p-1" style="max-width: 540px;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="https://picsum.photos/200/301"
+                                                        alt="Trendy Pants and Shoes" class="img-fluid rnd" />
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Elden Ring</h5>
+                                                        <span><i class="bi bi-steam"
+                                                                style="font-size: 1.2rem; color: #000000;"></i></span>
+                                                        <p class="card-text">started 25 May</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr style="color: #fff;">
+                            <div class="recent-completed">
+                                <h4 class="text-light">Recently Completed</h4>
+                                <div class="row row-cols-2 g-3">
+                                    <div class="col">
+                                        <div class="card mb-3 bg-warning rnd p-1" style="max-width: 540px;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="https://picsum.photos/200/302"
+                                                        alt="Trendy Pants and Shoes" class="img-fluid rounded-1" />
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Ghost of Tsushima</h5>
+                                                        <span><i class="bi bi-steam"
+                                                                style="font-size: 1.2rem; color: #000000;"></i></span>
+                                                        <p class="card-text">19 May</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- list -->
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+                    tabindex="0">
+                    <div id="game-list">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex mb-1 justify-content-between align-items-center rnd">
+                                <div class="d-flex fw-semibold">
+                                    Ghost of Tsushima
+                                    <i class="bi bi-steam ms-2" style="font-size: 1.2rem; color: #000000;"></i>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="ms-2"><i class="bi bi-check-circle list-icon"
+                                            style="color: limegreen;"></i></span>
+                                    <span class="ms-2"><i class="bi bi-x-circle list-icon"
+                                            style="color: red;"></i></span>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex mb-1 justify-content-between align-items-center rnd">
+                                <div class="d-flex fw-semibold">
+                                    Kingdom Come Deliverance
+                                    <i class="bi bi-steam ms-2" style="font-size: 1.2rem; color: #000000;"></i>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="ms-2"><i class="bi bi-play-circle list-icon"
+                                            style="color: limegreen;"></i></span>
+                                    <span class="ms-2"><i class="bi bi-x-circle list-icon"
+                                            style="color: red;"></i></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="bg-dark text-light fixed-bottom">
+            <!-- Copyright -->
+            <div class="px-5 py-2 pt-3 text-center">
+                <span>made by p1xLe with</span>
+                <i class="bi-heart-fill" style="color: red;"></i><br>
+                <p>powered by <a href="">boost</a></p>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+            </script>
+        <script src="scripts/script.js"></script>
+</body>
+
+</html>

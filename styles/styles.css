@@ -1,0 +1,43 @@
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
+}
+
+.stat-btn {
+  border-radius: 3px;
+  text-wrap: nowrap;
+}
+
+.rnd {
+    border-radius: 2px !important;
+}
+
+.list-icon {
+    font-size: 1.3rem;
+}
+
+
+.res-actions {
+  border-radius: 2px;
+}
+
+.nav-res {
+  color: #aaa;
+  border-radius: 2px;
+}
+.nav-links .nav-res.active {
+  border-bottom: 2px solid #ffffff;
+  color: #ffffff;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+}
+.nav-res:hover {
+  color: #ffffff;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
+    transform: scale(1.02, 1.02);
+    transition: all 0.2s ease-in-out;
+}
