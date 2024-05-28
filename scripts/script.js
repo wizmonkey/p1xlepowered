@@ -3,8 +3,6 @@ const container = document.getElementById('results');
 
 // search operation
 function searchWord() {
-  let search = document.getElementById('search');
-  let word = search.value.toLowerCase().trim();
   // console.log('initializing function');
   url = `https://api.rawg.io/api/games/0`;
   // url = '../words.txt';
@@ -20,7 +18,6 @@ function searchWord() {
     .catch((error) => {
       console.error('Error fetching data', error);
     });
-  search.value = '';
 }
 
 
