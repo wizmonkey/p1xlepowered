@@ -16,7 +16,7 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyA69wyRKVW_II6gJGGjWgjEevzfEjXKNXM',
+  apiKey: 'keykey',
   authDomain: 'p1xlepowered.firebaseapp.com',
   projectId: 'p1xlepowered',
   storageBucket: 'p1xlepowered.appspot.com',
