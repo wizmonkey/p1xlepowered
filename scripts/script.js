@@ -6,7 +6,7 @@ const search = document.getElementById('gameSearch');
 search.addEventListener('input', searchGame);
 function searchGame(event) {
   event.preventDefault(event); // Prevent form from submitting
-  const apiKey = '31e1a5687f25403298fa63ffe00ddff9'; // Ensure this is your correct API key
+  const apiKey = 'keykeykey'; // Ensure this is your correct API key
   const name = search.value.toLowerCase().trim();
 
   if (name.length > 2) {
