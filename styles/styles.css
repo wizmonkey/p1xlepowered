@@ -1,3 +1,53 @@
+
+body {
+  background: #0c0c0c;
+}
+
+.btn, .rnd {
+  border-radius: 2px !important;
+}
+
+.btn {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;  
+}
+
+
+a {
+  text-decoration: none !important;
+}
+
+.brdr {
+  border: 1px solid #363636;
+}
+
+.no-disp {
+  display: none;
+}
+
+.na {
+  color: #838282;
+}
+
+
+input, .form-control {
+  border-radius: 2px !important;
+  outline: none !important;
+  border: none;
+}
+
+input:focus, .form-control:focus {
+  outline: none !important;
+}
+
+#alertContainer {
+  position: fixed;
+  bottom: 0;
+  width: 540px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
 .profile-image {
   width: 80px;
   height: 80px;
@@ -7,16 +57,13 @@
 .stat-btn {
   border-radius: 3px;
   text-wrap: nowrap;
+  font-weight: 600;
 }
 
-.rnd {
-    border-radius: 2px !important;
-}
 
 .list-icon {
-    font-size: 1.3rem;
+  font-size: 1.4rem;
 }
-
 
 .res-actions {
   border-radius: 2px;
@@ -26,18 +73,118 @@
   color: #aaa;
   border-radius: 2px;
 }
+
 .nav-links .nav-res.active {
   border-bottom: 2px solid #ffffff;
   color: #ffffff;
   font-weight: bold;
   transition: all 0.2s ease-in-out;
 }
+
 .nav-res:hover {
   color: #ffffff;
 }
 
-.card:hover {
-    box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
-    transform: scale(1.02, 1.02);
-    transition: all 0.2s ease-in-out;
+.search-image {
+  width: 60px;
+  height: 80px;
+  background-size: cover;
+}
+
+.edition-image {
+  width: 90px;
+  height: 100%;
+  background-size: cover;
+}
+
+.search-card {
+  height: 90px;
+  margin: 0 1px;
+  display: flex;
+}
+
+.edition-card {
+  min-height: 120px;
+  max-height: 150px;
+  margin: 0 1px;
+  display: flex;
+}
+
+.account-nav {
+  display: flex;
+  background: #161616;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+}
+
+.account-nav:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;  
+  transform: scale(1.02, 1.02);
+  background-color: #242424;
+}
+
+.list-card {
+  background: #161616;
+  display: flex;
+  margin-bottom: 5px;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  border: none;
+}
+
+.card, .search-card, .edition-card, .list-card {
+  transition: all 0.2s ease-in-out;
+}
+.card:hover, .search-card:hover, .edition-card:hover, .list-card:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;  
+  transform: scale(1.02, 1.02);
+}
+
+.account-card:hover {
+  transform: none;
+  box-shadow: none;
+  cursor: auto;
+}
+
+.game-image-container {
+  position: relative;
+  width: 100%;
+  padding-top: 111%; /* 16:9 aspect ratio (9 / 16 * 100%) */
+  overflow: hidden;
+  background-color: #000; /* Fallback background color */
+}
+
+.game-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#screenshotsContainer img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
+/* game name colors accotding to lists */
+.wishlist-text { color: #f32c5e; }
+.completed-text { color: limegreen; }
+.playing-text { color: dodgerblue; }
+
+.upload-icon-container {
+  width: 40px; /* Adjust this value based on your icon size */
+  height: 40px; /* Adjust this value based on your icon size */
+  background-color: #007bff; /* Choose your desired background color */
+  border-radius: 50%; /* Make the container round */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

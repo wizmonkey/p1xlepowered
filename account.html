@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Account</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body class="text-light">
+    <nav class="navbar navbar-expand-lg" data-bs-theme="dark" style="  background: #161616">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">plxylist</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item account-nav fw-semibold rnd px-md-0 px-lg-2">
+                        <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                    </li>
+                </ul>
+
+                <form class="d-flex mb-2 mb-lg-0">
+                    <input id="searchBox" class="form-control me-2 account-nav bg-dark" type="search" placeholder="Search for games"
+                    aria-label="Search" data-bs-toggle="modal" data-bs-target="#searchModal"/>
+                </form>
+                
+                <div class="ms-md-0 ms-lg-2">
+                    <a href="account.html">
+                        <div class="d-flex align-items-middle justify-content-start account-nav py-1 px-md-0 px-lg-2 rnd">
+                            <img src="assets/avatar.jpeg" class="img-fluid profile-image" alt="..."
+                            style="width: 35px; height: 35px;">
+                            <span class="fw-bold ms-2" id="navName">p1xLe</span><br>
+                        </div>
+                    </a>
+                </div>
+
+ 
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-3">
+        <!-- profile -->
+        <div class="card bg-dark text-light account-card my-4 rnd">
+            <h5 class="card-header rnd"><i class="bi bi-person-circle me-2"></i>Account</h5>
+            <div class="card-body">
+                <div id="" class="d-flex flex-wrap align-items-start justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <img src="assets/avatar.jpeg" class="img-fluid profile-image" alt="...">
+                        <div class="ms-3" role="button">
+                            <p>
+                                <span class="fw-bold fs-1" id="displayName">p1xLe</span><br>
+                                <span class="fw-medium fs-5" id="displayEmail">p1xle@lol.com</span><br>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- logout button -->
+                    <div class="mt-3">
+                        <button id="logOut" class="btn btn-danger fw-semibold shadow">
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- connnections -->
+        <div class="card bg-dark text-light account-card my-4 rnd">
+            <h5 class="card-header rnd"><i class="bi bi-link-45deg me-2"></i>Connections</h5>
+            <div class="card-body d-flex flex-wrap">
+                <div id="" class="d-flex align-items-center m-1">
+                    <button class="btn btn-light">
+                        <a href="https://steamcommunity.com/id/_p1xLe/" target="_blank">
+                            <img src="assets/steam.svg" class="store-icon" style="width: 1.8rem">
+                            <span class="ms-1 fw-semibold text-dark">Steam</span>
+                        </a>
+                    </button>
+                </div>
+                <div id="" class="d-flex align-items-center m-1">
+                    <button class="btn btn-light">
+                        <a href="https://steamcommunity.com/id/_p1xLe/" target="_blank">
+                            <img src="assets/ps.svg" class="store-icon" style="width: 1.8rem">
+                            <span class="ms-1 fw-semibold text-dark">Play Station</span>
+                        </a>
+                    </button>
+                </div>
+                <div id="" class="d-flex align-items-center m-1">
+                    <button class="btn btn-light">
+                        <a href="https://steamcommunity.com/id/_p1xLe/" target="_blank">
+                            <img src="assets/epic.svg" class="store-icon" style="width: 1.8rem">
+                            <span class="ms-1 fw-semibold text-dark">Epic Games</span>
+                        </a>
+                    </button>
+                </div>
+                <div id="" class="d-flex align-items-center m-1">
+                    <button class="btn btn-light">
+                        <a href="https://steamcommunity.com/id/_p1xLe/" target="_blank">
+                            <img src="assets/xbox.svg" class="store-icon" style="width: 1.8rem">
+                            <span class="ms-1 fw-semibold text-dark">Xbox</span>
+                        </a>
+                    </button>
+                </div>
+                <div id="" class="d-flex align-items-center m-1">
+                    <button class="btn btn-light">
+                        <a href="https://steamcommunity.com/id/_p1xLe/" target="_blank">
+                            <img src="assets/gog.svg" class="store-icon" style="width: 1.8rem">
+                            <span class="ms-1 fw-semibold text-dark">GOG</span>
+                        </a>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- data -->
+        <div class="card bg-dark text-light account-card my-4 rnd">
+            <h5 class="card-header rnd"><i class="bi bi-nvme me-2"></i>Data</h5>
+            <div class="card-body">
+                <div class="d-flex justify-content-start align-items-center">
+                    <!-- <span class="fs-5">Delete Games Data</span> -->
+                    <button id="" class="btn btn-danger fw-semibold shadow me-2">
+                        <i class="bi bi-trash me-1"></i>
+                        Delete All Lists
+                    </button>
+                    <button id="" class="btn btn-danger fw-semibold shadow me-2">
+                        <i class="bi bi-person-x me-1"></i>
+                        Delete Account Permanently
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- information -->
+        <div class="card bg-dark text-light account-card my-4 rnd">
+            <h5 class="card-header rnd"><i class="bi bi-info-circle me-2"></i>Acknowledgements and Info</h5>
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+
+                    <!-- third party links button-->
+                    <button id="" class="btn btn-light fw-semibold shadow me-2" data-bs-toggle="modal"
+                        data-bs-target="#resourcesModal">
+                        <i class="bi bi-code-slash me-1"></i>
+                        Third Party Notices
+                    </button>
+
+                    <!-- useful links button -->
+                    <button id="" class="btn btn-light fw-semibold shadow me-2" data-bs-toggle="modal"
+                        data-bs-target="#usefulLinksModal">
+                        <i class="bi bi-link me-1"></i>
+                        Useful Links
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- /////////////////////////////////// MODALS ///////////////////////////////////////////////////-->
+
+        <!-- Third Party Notices Modal -->
+        <div class="modal fade" id="resourcesModal" tabindex="-1" aria-labelledby="resourcesModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
+                <div class="modal-content bg-dark text-light rnd">
+                    <div class="d-flex align-items-end justify-content-between px-3 pt-3">
+                        <h5>Third Party Notices</h5>
+                        <i class="bi bi-x-circle text-danger list-icon" role="button" data-bs-dismiss="modal"
+                            onmouseenter="this.className='bi bi-x-circle-fill text-danger list-icon'"
+                            onmouseleave="this.className='bi bi-x-circle text-danger list-icon'" aria-label="Close"></i>
+                    </div>
+                    <hr>
+                    <div class="modal-body" id="modal-body">
+                        <div id="resourceItems">
+                            <ul class="list-group list-group-flush">
+                                <!-- rawg io -->
+                                <a href="https://rawg.io/" target="_blank">
+                                    <li
+                                        class="list-group-item d-flex mb-1 justify-content-between align-items-center rnd list-card">
+                                        <div class="fw-semibold lh-1">
+                                            RAWG.io
+                                        </div>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </li>
+                                </a>
+
+                                <!-- bootstrap -->
+                                <a href="https://getbootstrap.com/" target="_blank">
+                                    <li
+                                        class="list-group-item d-flex mb-1 justify-content-between align-items-center rnd list-card">
+                                        <div class="fw-semibold lh-1">
+                                            Bootstrap
+                                        </div>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </li>
+                                </a>
+
+                                <!-- firebase -->
+                                <a href="https://rawg.io/" target="_blank">
+                                    <li
+                                        class="list-group-item d-flex mb-1 justify-content-between align-items-center rnd list-card">
+                                        <div class="fw-semibold lh-1">
+                                            Firebase
+                                        </div>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </li>
+                                </a>
+
+                                <!-- bootstrap icons -->
+                                <a href="https://icons.getbootstrap.com/" target="_blank">
+                                    <li
+                                        class="list-group-item d-flex mb-1 justify-content-between align-items-center rnd list-card">
+                                        <div class="fw-semibold lh-1">
+                                            Bootstrap Icons
+                                        </div>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </li>
+                                </a>
+
+                                <!-- google material icons -->
+                                <a href="https://icons.getbootstrap.com/" target="_blank">
+                                    <li
+                                        class="list-group-item d-flex mb-1 justify-content-between align-items-center rnd list-card">
+                                        <div class="fw-semibold lh-1">
+                                            Google Material Icons
+                                        </div>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </li>
+                                </a>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <button type="button" class="btn btn-danger rnd m-3" data-bs-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- useful links modal-->
+        <div class="modal fade" id="usefulLinksModal" tabindex="-1" aria-labelledby="usefulLinksModal"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
+                <div class="modal-content text-light rnd" style="background: #0e0e0e;">
+                    <div class="d-flex align-items-end justify-content-between px-3 pt-3">
+                        <h5>Useful Links</h5>
+                        <i class="bi bi-x-circle text-danger list-icon" role="button" data-bs-dismiss="modal"
+                            onmouseenter="this.className='bi bi-x-circle-fill text-danger list-icon'"
+                            onmouseleave="this.className='bi bi-x-circle text-danger list-icon'" aria-label="Close"></i>
+                    </div>
+                    <hr>
+                    <div class="modal-body" id="modal-body">
+                        <div id="usefulLinks">
+
+                            <!-- playnite -->
+                            <div class="card bg-dark text-light account-card my-4 rnd">
+                                <h5 class="card-header rnd fw-semibold">Playnite</h5>
+                                <div class="card-body">
+                                    <div class="">
+                                        <div class="card-text fw-semibold">
+                                            <p>Playnite is an open-source game launcher, that combines all your other
+                                                game launcher libraries like steam, epic games, uplay, gog and more.</p>
+                                        </div>
+                                        <button id="" class="btn btn-light fw-semibold shadow me-2">
+                                            <i class="bi bi-box-arrow-up-right me-1"></i>
+                                            Visit Playnite
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- IGDB -->
+                            <div class="card bg-dark text-light account-card my-4 rnd">
+                                <h5 class="card-header rnd fw-semibold">IGDB</h5>
+                                <div class="card-body">
+                                    <div class="">
+                                        <div class="card-text fw-semibold">
+                                            <p>
+                                                The IGDB is one of the biggest video game databases. Some text about
+                                                this resource here. Some more text about this resource here.
+                                            </p>
+                                        </div>
+                                        <button id="" class="btn btn-light fw-semibold shadow me-2">
+                                            <i class="bi bi-box-arrow-up-right me-1"></i>
+                                            Visit IGDB
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- RAWG -->
+                            <div class="card bg-dark text-light account-card my-4 rnd">
+                                <h5 class="card-header rnd fw-semibold">RAWG</h5>
+                                <div class="card-body">
+                                    <div class="">
+                                        <div class="card-text fw-semibold">
+                                            <p>
+                                                The RAWG is one of the biggest video game databases. Some text about
+                                                this resource here. Some more text about this resource here.
+                                            </p>
+                                        </div>
+                                        <button id="" class="btn btn-light fw-semibold shadow me-2">
+                                            <i class="bi bi-box-arrow-up-right me-1"></i>
+                                            Visit RAWG.io
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- HLTB -->
+                            <div class="card bg-dark text-light account-card my-4 rnd">
+                                <h5 class="card-header rnd fw-semibold">How Long To Beat</h5>
+                                <div class="card-body">
+                                    <div class="">
+                                        <div class="card-text fw-semibold">
+                                            <p>
+                                                How Long to Beat is a game tracking site that tracks how long a games
+                                                takes to beat. Some text about this resource here. Some more text about
+                                                this resource here.
+                                            </p>
+                                        </div>
+                                        <button id="" class="btn btn-light fw-semibold shadow me-2">
+                                            <i class="bi bi-box-arrow-up-right me-1"></i>
+                                            Visit HLTB
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <button type="button" class="btn btn-danger rnd m-3" data-bs-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Modal -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-xl">
+                <div class="modal-content bg-dark text-light rnd">
+                    <div class="p-3">
+                        <form class="d-flex" role="search">
+                            <input id="gameSearch" class="form-control me-2 rnd " type="search"
+                                placeholder="Search for games" aria-label="Search">
+                            <button id="submit" class="btn btn-outline-success rnd">
+                                Search
+                            </button>
+                        </form>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <!-- Results will be displayed here -->
+                        <div id="results" class="">
+                        </div>
+
+                    </div>
+                    <button type="button" class="btn btn-secondary rnd m-3" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="alertContainer" class="rounded-1"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+    <script type="module" src="scripts/fireAuth.js"></script>
+    <script src="scripts/script.js"></script>
+    <script type="module" src="scripts/user.js"></script>
+    <script src="scripts/utils.js"></script>
+</body>
+
+</html>

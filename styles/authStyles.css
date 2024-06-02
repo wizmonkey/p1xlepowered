@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    justify-content: center; /* horizontally center */
+    align-items: center; /* vertically center */
+    height: 100vh; /* full viewport height */
+}
+
+.hidden {
+    display: none;
+}
+
+.slide-container {
+    display: flex;
+    width: 200%;    
+    /* background-image: url('../assets/authBg.jpg');
+    background-size: contain;
+    background-repeat: no-repeat; */
+}
+
+.slide {
+    width: 50%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.show {
+    transform: translateX(0);
+}
+
+.slide-right {
+    transform: translateX(-50%);
+}
+
+.slide-left {
+    transform: translateX(50%);
+}
+.container {
+    margin: 0 auto;
+    max-width: 1200px; /* Adjust as needed */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}

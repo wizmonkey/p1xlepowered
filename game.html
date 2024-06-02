@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/loader.css">
+</head>
+
+<body class="text-light">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Game Details</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="base" class="container my-3">
+
+        <div id="game-details" class="row px-2">
+            <div class="col-md-12 col-12 col-xl-8">
+                <h1 id="title" class="fw-bold" style="font-size: 3.3rem;"></h1>
+                <div class="year-platforms d-flex align-items-center">
+                    <span id="releaseChip" class="btn btn-sm bg-light text-dark rnd fw-semibold"></span>
+                    <div class="metarating ms-4 btn btn-sm btn-light fw-semibold">
+                        <span>Metascore:</span>
+                        <span id="metascore"></span>
+                    </div>
+                    <div class="rating ms-4 btn btn-sm btn-light fw-semibold">
+                        <i class="bi bi-star-fill"></i>
+                        <span id="rating"></span>
+                    </div>
+                    <div id="platformIcons" class="platform-icons ms-4 btn btn-light btn-sm">
+                    </div>
+                </div>
+                <div class="launchers d-flex align-items-center mt-2 fs-5 fw-semibold">
+                    <div class="dev ">
+                        <span class="text-secondary">Developer: </span><span id="developer"></span>
+                    </div>
+                    <div class="pub ms-3">
+                        <span class="text-secondary">Publisher: </span><span id="publisher"></span>
+                    </div>
+                </div>
+                <hr>
+                <!-- screenshots -->
+                <div id="screenshotsContainer" class="row rnd">
+                    <div id="screenshotsCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators" id="carousel-indicators"></div>
+                        <div class="carousel-inner" id="carousel-inner"></div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#screenshotsCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#screenshotsCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12 col-12 col-xl-4 ">
+                <div id="gameImage" class="game-image-container text-center">
+                    <img src="" alt="Game Image" class="game-image rounded">
+                </div>
+                <div class="add mt-2">
+                    <button id="addToWishlistButton" class="btn btn-light btn-lg w-100 fw-bold"
+                        style="letter-spacing: 1px;">ADD TO CATALOGUE</button>
+                </div>
+                <div class="mt-3">
+                    <span id="buyText" class="text-start text-secondary fs-5">Where to buy</span>
+                    <div id="stores" class="stores mt-2 text-start no-disp"></div>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- description -->
+        <div class="desc fs-5 p-2">
+            <h4 class="fw-semibold">About</h4>
+            <p id="description"> </p>
+        </div>
+        <hr>
+
+        <!-- details -->
+        <div id="details" class="details rnd p-2 mt-3 fs-5">
+            <h5 class="fw-semibold fs-4">Information</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="platforms my-3">
+                        <span class="text-secondary">Platforms:</span>
+                        <br>
+                        <span id="platforms"></span>
+                    </div>
+                    <div class="genre my-3">
+                        <span class="text-secondary">Genre:</span>
+                        <br>
+                        <span id="genres"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="release my-3">
+                        <span class="text-secondary">Release Date:</span>
+                        <br>
+                        <span id="release"></span>
+                    </div>
+                    <div class="age my-3">
+                        <span class="text-secondary">ESRB Rating:</span>
+                        <br>
+                        <span id="esrb"></span>
+                    </div>
+                </div>
+                <div class="website my-2">
+                    <span class="text-secondary">Website:</span>
+                    <span id="website"></span>
+                </div>
+                <div class="tags my-3">
+                    <span class="text-secondary">Tags:</span><br>
+                    <span id="tags" class="fs-6"></span>
+                </div>
+            </div>
+            <div id="rating"></div>
+        </div>
+        <hr>
+        <!-- editions and dlcs -->
+        <div id="editionContainer" class="editions p-1 mt-3 rnd no-disp">
+            <h5 class="fw-semibold fs-4">DLC's and Editions</h5>
+            <div id="editions" class="row fs-5"></div>
+        </div>
+
+        <!-- games in the series -->
+        <div id="seriesContainer" class="editions p-1 mt-3 rnd no-disp">
+            <h5 class="fw-semibold fs-4">Other games in the series</h5>
+            <div id="series" class="row fs-5"></div>
+        </div>
+        <!-- base/parent games -->
+        <div id="parentContainer" class="editions p-1 mt-3 rnd no-disp">
+            <h5 class="fw-semibold fs-4">Base Games</h5>
+            <div id="parents" class="row fs-5"></div>
+        </div>
+
+    </div>
+    <div id="alertContainer" class="rnd"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="scripts/game.js"></script>
+</body>
+
+</html>
