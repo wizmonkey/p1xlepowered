@@ -11,7 +11,7 @@ import {
   deleteObject,
   onAuthStateChanged,
   signOut,
-} from './fireAuth.js';
+} from './firebase.js';
 
 // Check if elements exist before accessing them
 const displayName = document.querySelectorAll('.displayName');

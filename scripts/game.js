@@ -1,4 +1,4 @@
-import { auth, db, setDoc, getDoc, doc } from './fireAuth.js';
+import { auth, db, setDoc, getDoc, doc } from './firebase.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const apiKey = process.env.RAWG_API_KEY;
