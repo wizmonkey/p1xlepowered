@@ -1,16 +1,18 @@
-
 body {
   background: #0c0c0c;
 }
+.dark-bg {
+  background: #0c0c0c;
+}
 
-.btn, .rnd {
+.btn,
+.rnd {
   border-radius: 2px !important;
 }
 
 .btn {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;  
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
-
 
 a {
   text-decoration: none !important;
@@ -28,14 +30,15 @@ a {
   color: #838282;
 }
 
-
-input, .form-control {
+input,
+.form-control {
   border-radius: 2px !important;
   outline: none !important;
   border: none;
 }
 
-input:focus, .form-control:focus {
+input:focus,
+.form-control:focus {
   outline: none !important;
 }
 
@@ -49,9 +52,28 @@ input:focus, .form-control:focus {
 }
 
 .profile-image {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 100px;
+}
+
+.profile-image-icon {
+  font-size: 16px;
+  cursor: pointer;
+  color: #000;
+  position: absolute;
+  bottom: 2px;
+  right: -5px;
+  border-radius: 50%;
+  background-color: rgb(253, 253, 253);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding-left: 1px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 }
 
 .stat-btn {
@@ -59,7 +81,6 @@ input:focus, .form-control:focus {
   text-wrap: nowrap;
   font-weight: 600;
 }
-
 
 .list-icon {
   font-size: 1.4rem;
@@ -120,7 +141,7 @@ input:focus, .form-control:focus {
 
 .account-nav:hover {
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;  
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   transform: scale(1.02, 1.02);
   background-color: #242424;
 }
@@ -135,12 +156,18 @@ input:focus, .form-control:focus {
   border: none;
 }
 
-.card, .search-card, .edition-card, .list-card {
+.card,
+.search-card,
+.edition-card,
+.list-card {
   transition: all 0.2s ease-in-out;
 }
-.card:hover, .search-card:hover, .edition-card:hover, .list-card:hover {
+.card:hover,
+.search-card:hover,
+.edition-card:hover,
+.list-card:hover {
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;  
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   transform: scale(1.02, 1.02);
 }
 
@@ -175,16 +202,27 @@ input:focus, .form-control:focus {
 }
 
 /* game name colors accotding to lists */
-.wishlist-text { color: #f32c5e; }
-.completed-text { color: limegreen; }
-.playing-text { color: dodgerblue; }
+.wishlist-text {
+  color: #f32c5e;
+}
+.completed-text {
+  color: limegreen;
+}
+.playing-text {
+  color: dodgerblue;
+}
 
-.upload-icon-container {
-  width: 40px; /* Adjust this value based on your icon size */
-  height: 40px; /* Adjust this value based on your icon size */
-  background-color: #007bff; /* Choose your desired background color */
-  border-radius: 50%; /* Make the container round */
+.dash-card {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  height: 100%; /* Ensure the card takes the full height */
+}
+
+.dash-card-body {
+  flex: 1; /* Let the card body take up the remaining space */
+}
+
+.dash-card-img-top {
+  object-fit: cover; /* Maintain aspect ratio while covering the entire space */
+  height: 100%; /* Ensure the image takes the full height of the card */
 }

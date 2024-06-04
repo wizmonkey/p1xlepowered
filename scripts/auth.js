@@ -14,15 +14,8 @@ const userEmailAuth = document.getElementById('emailAuth');
 const userPassword = document.getElementById('password');
 const userPasswordAuth = document.getElementById('passwordAuth');
 
-const dispName = document.getElementById('dispName');
-const dispEmail = document.getElementById('dispEmail');
-
 const signUpButton = document.getElementById('signUpButton');
 const LogInButton = document.getElementById('LogInButton');
-const signOutButton = document.getElementById('signOutButton');
-const registerForm = document.getElementById('registerForm');
-const loginForm = document.getElementById('loginForm');
-const secret = document.getElementById('secret');
 const alertContainer = document.getElementById('alertContainer');
 
 const showAlert = (message, type) => {
@@ -57,10 +50,14 @@ const userSignUp = async () => {
       console.log(user);
       showAlert('Account Created', 'success');
 
+      //get the current date
+      const currentDate = new Date();
+
       // Save the user data
       await setDoc(doc(db, 'users', user.uid), {
         username: signUpName,
         email: signUpEmail,
+        joinDate: currentDate
       });
 
       // Automatically log in the user and redirect to home page

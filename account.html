@@ -13,7 +13,7 @@
 <body class="text-light">
     <nav class="navbar navbar-expand-lg" data-bs-theme="dark" style="  background: #161616">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">plxylist</a>
+            <a class="navbar-brand" href="index.html">plxylist</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -27,21 +27,22 @@
                 </ul>
 
                 <form class="d-flex mb-2 mb-lg-0">
-                    <input id="searchBox" class="form-control me-2 account-nav bg-dark" type="search" placeholder="Search for games"
-                    aria-label="Search" data-bs-toggle="modal" data-bs-target="#searchModal"/>
+                    <input id="searchBox" class="form-control me-2 account-nav bg-dark" type="search"
+                        placeholder="Search for games" aria-label="Search" data-bs-toggle="modal"
+                        data-bs-target="#searchModal" />
                 </form>
-                
+
                 <div class="ms-md-0 ms-lg-2">
                     <a href="account.html">
-                        <div class="d-flex align-items-middle justify-content-start account-nav py-1 px-md-0 px-lg-2 rnd">
-                            <img src="assets/avatar.jpeg" class="img-fluid profile-image" alt="..."
-                            style="width: 35px; height: 35px;">
-                            <span class="fw-bold ms-2" id="navName">p1xLe</span><br>
+                        <div
+                            class="d-flex align-items-middle justify-content-start account-nav py-1 px-md-0 px-lg-2 rnd">
+                            <img src="assets/noImg.jpg" class="avatar img-fluid profile-image" alt="..."
+                                style="width: 35px; height: 35px;">
+                            <span class="fw-bold ms-2 displayName" id="navName"></span><br>
                         </div>
                     </a>
                 </div>
 
- 
             </div>
         </div>
     </nav>
@@ -53,11 +54,19 @@
             <div class="card-body">
                 <div id="" class="d-flex flex-wrap align-items-start justify-content-between">
                     <div class="d-flex justify-content-between align-items-center">
-                        <img src="assets/avatar.jpeg" class="img-fluid profile-image" alt="...">
+                        <div class="position-relative">
+                            <input type="file" id="avatarInput" accept="image/*" hidden>
+                            <img src="assets/noImg.jpg" class="avatar img-fluid profile-image" alt="Profile Image">
+                            <label for="avatarInput">
+                                <i class="bi bi-camera me-1 profile-image-icon"></i>
+                            </label>
+                        </div>
+
                         <div class="ms-3" role="button">
-                            <p>
-                                <span class="fw-bold fs-1" id="displayName">p1xLe</span><br>
-                                <span class="fw-medium fs-5" id="displayEmail">p1xle@lol.com</span><br>
+                            <p class="">
+                                <span class="fw-bold fs-1 displayName" id=""></span><br>
+                                <span class="fw-medium fs-5" id="displayEmail"></span><br>
+                                <!-- <span class="fw-medium fs-6" id="displayJoinDate"></span><br> -->
                             </p>
                         </div>
                     </div>
@@ -69,11 +78,21 @@
                         </button>
                     </div>
                 </div>
+                <div class="me-1 d-flex">
+                    <button class="btn btn-light stat-btn me-2 my-1" data-bs-toggle="tooltip"
+                        data-bs-title="Total Games">
+                        <span class="totalGames"></span> Games
+                    </button>
+                    <button class="btn btn-light stat-btn me-2 my-1" data-bs-toggle="tooltip"
+                        data-bs-title="Member since">
+                        <span id="displayJoinDate"></span>
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- connnections -->
-        <div class="card bg-dark text-light account-card my-4 rnd">
+        <!-- <div class="card bg-dark text-light account-card my-4 rnd">
             <h5 class="card-header rnd"><i class="bi bi-link-45deg me-2"></i>Connections</h5>
             <div class="card-body d-flex flex-wrap">
                 <div id="" class="d-flex align-items-center m-1">
@@ -118,22 +137,43 @@
                 </div>
 
             </div>
-        </div>
+        </div> -->
 
         <!-- data -->
         <div class="card bg-dark text-light account-card my-4 rnd">
             <h5 class="card-header rnd"><i class="bi bi-nvme me-2"></i>Data</h5>
             <div class="card-body">
-                <div class="d-flex justify-content-start align-items-center">
-                    <!-- <span class="fs-5">Delete Games Data</span> -->
-                    <button id="" class="btn btn-danger fw-semibold shadow me-2">
-                        <i class="bi bi-trash me-1"></i>
-                        Delete All Lists
-                    </button>
-                    <button id="" class="btn btn-danger fw-semibold shadow me-2">
-                        <i class="bi bi-person-x me-1"></i>
-                        Delete Account Permanently
-                    </button>
+                <div class="">
+                    <div>
+                        <span class="fs-5">Export Catalogue</span>
+                        <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip"
+                            data-bs-title="Download all your lists"></i>
+                        <br>
+                        <!-- export as JSON -->
+                        <button id="exportJSON" class="btn btn-info fw-semibold me-2 my-2">
+                            <i class="bi bi-filetype-json me-1"></i>
+                            Export as JSON
+                        </button>
+
+                        <!-- export as CSV -->
+                        <button id="exportCSV" class="btn btn-info fw-semibold me-2 my-2">
+                            <i class="bi bi-filetype-csv me-1"></i>
+                            Export as CSV
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="">
+                        <span class="fs-5">Delete Games Data</span>
+                        <br>
+                        <button id="deleteAllLists" class="btn btn-danger fw-semibold shadow me-2 my-2">
+                            <i class="bi bi-list-stars me-1"></i>
+                            Delete All Lists
+                        </button>
+                        <button id="deleteAccount" class="btn btn-danger fw-semibold shadow me-2 my-2">
+                            <i class="bi bi-person-x me-1"></i>
+                            Delete Account
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -201,7 +241,7 @@
                                 </a>
 
                                 <!-- firebase -->
-                                <a href="https://rawg.io/" target="_blank">
+                                <a href="https://firebase.google.com/" target="_blank">
                                     <li
                                         class="list-group-item d-flex mb-1 justify-content-between align-items-center rnd list-card">
                                         <div class="fw-semibold lh-1">
@@ -221,18 +261,6 @@
                                         <i class="bi bi-chevron-right"></i>
                                     </li>
                                 </a>
-
-                                <!-- google material icons -->
-                                <a href="https://icons.getbootstrap.com/" target="_blank">
-                                    <li
-                                        class="list-group-item d-flex mb-1 justify-content-between align-items-center rnd list-card">
-                                        <div class="fw-semibold lh-1">
-                                            Google Material Icons
-                                        </div>
-                                        <i class="bi bi-chevron-right"></i>
-                                    </li>
-                                </a>
-
 
                             </ul>
                         </div>
@@ -263,13 +291,37 @@
                                 <div class="card-body">
                                     <div class="">
                                         <div class="card-text fw-semibold">
-                                            <p>Playnite is an open-source game launcher, that combines all your other
-                                                game launcher libraries like steam, epic games, uplay, gog and more.</p>
+                                            <p>An open source video game library manager and launcher with support for
+                                                3rd party libraries like Steam, Epic, GOG, EA App, Battle.net and
+                                                others. Includes game emulation support, providing one unified interface
+                                                for your games.</p>
                                         </div>
-                                        <button id="" class="btn btn-light fw-semibold shadow me-2">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i>
-                                            Visit Playnite
-                                        </button>
+                                        <a href="https://playnite.link/" target="_blank">
+                                            <button id="" class="btn btn-light fw-semibold shadow me-2">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i>
+                                                Visit Playnite
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RAWG -->
+                            <div class="card bg-dark text-light account-card my-4 rnd">
+                                <h5 class="card-header rnd fw-semibold">RAWG</h5>
+                                <div class="card-body">
+                                    <div class="">
+                                        <div class="card-text fw-semibold">
+                                            <p>
+                                                Open video game database.
+                                            </p>
+                                        </div>
+                                        <a href="https://rawg.io/" target="_blank">
+                                            <button id="" class="btn btn-light fw-semibold shadow me-2">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i>
+                                                Visit RAWG
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -281,37 +333,19 @@
                                     <div class="">
                                         <div class="card-text fw-semibold">
                                             <p>
-                                                The IGDB is one of the biggest video game databases. Some text about
-                                                this resource here. Some more text about this resource here.
+                                                Another video game database.
                                             </p>
                                         </div>
-                                        <button id="" class="btn btn-light fw-semibold shadow me-2">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i>
-                                            Visit IGDB
-                                        </button>
+                                        <a href="https://www.igdb.com" target="_blank">
+                                            <button id="" class="btn btn-light fw-semibold shadow me-2">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i>
+                                                Visit IGDB
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
 
-
-                            <!-- RAWG -->
-                            <div class="card bg-dark text-light account-card my-4 rnd">
-                                <h5 class="card-header rnd fw-semibold">RAWG</h5>
-                                <div class="card-body">
-                                    <div class="">
-                                        <div class="card-text fw-semibold">
-                                            <p>
-                                                The RAWG is one of the biggest video game databases. Some text about
-                                                this resource here. Some more text about this resource here.
-                                            </p>
-                                        </div>
-                                        <button id="" class="btn btn-light fw-semibold shadow me-2">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i>
-                                            Visit RAWG.io
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
 
                             <!-- HLTB -->
                             <div class="card bg-dark text-light account-card my-4 rnd">
@@ -320,15 +354,16 @@
                                     <div class="">
                                         <div class="card-text fw-semibold">
                                             <p>
-                                                How Long to Beat is a game tracking site that tracks how long a games
-                                                takes to beat. Some text about this resource here. Some more text about
-                                                this resource here.
+                                                Video game completion time website. Track completion times, catalogue
+                                                games and more.
                                             </p>
                                         </div>
-                                        <button id="" class="btn btn-light fw-semibold shadow me-2">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i>
-                                            Visit HLTB
-                                        </button>
+                                        <a href="https://howlongtobeat.com/">
+                                            <button id="" class="btn btn-light fw-semibold shadow me-2">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i>
+                                                Visit HLTB
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -374,7 +409,6 @@
     <script type="module" src="scripts/fireAuth.js"></script>
     <script src="scripts/script.js"></script>
     <script type="module" src="scripts/user.js"></script>
-    <script src="scripts/utils.js"></script>
 </body>
 
 </html>

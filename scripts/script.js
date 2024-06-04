@@ -6,7 +6,7 @@ const search = document.getElementById('gameSearch');
 search.addEventListener('input', searchGame);
 function searchGame(event) {
   event.preventDefault(event); // Prevent form from submitting
-  const apiKey = '31e1a5687f25403298fa63ffe00ddff9'; // Ensure this is your correct API key
+  const apiKey = process.env.RAWG_API_KEY;
   const name = search.value.toLowerCase().trim();
 
   if (name.length > 2) {
@@ -20,7 +20,7 @@ function searchGame(event) {
       .then((data) => {
         if (data.results && data.results.length > 0) {
           displayResults(data.results);
-          console.log(results.platforms);
+          // console.log(results.platforms);
         } else {
           container.innerHTML = `<p class="text-center">Oh No! We couldn't find any game with that name =(</p>`;
         }
@@ -97,3 +97,6 @@ function displayResults(games) {
 
 // Event listener for search button
 document.getElementById('submit').addEventListener('click', searchGame);
+
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

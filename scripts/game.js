@@ -1,7 +1,7 @@
 import { auth, db, setDoc, getDoc, doc } from './fireAuth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const apiKey = '31e1a5687f25403298fa63ffe00ddff9';
+  const apiKey = process.env.RAWG_API_KEY;
   const urlParams = new URLSearchParams(window.location.search);
   const gameId = urlParams.get('id');
   const base = document.getElementById('base');
@@ -474,6 +474,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Get the current date
+      const currentDate = new Date().toISOString();
+
       // Get the user's document reference
       const userDocRef = doc(db, 'users', user.uid);
 
@@ -483,11 +486,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const isGameInWishlist = wishlist.some((item) => item.gameId === gameId);
       if (isGameInWishlist) {
         showAlert(`This game is already in your catalogue`, 'warning');
-        // console.log('Game is already in wishlist');
         return;
       }
 
-      // Add the game to the wishlist array in the user document
+      // Add the game to the wishlist array in the user document with the current date
       await setDoc(
         userDocRef,
         {
@@ -497,20 +499,18 @@ document.addEventListener('DOMContentLoaded', () => {
               gameId: gameId,
               gameName: gameName,
               backgroundImage: backgroundImage,
+              dateAdded: currentDate, // Add the current date
             },
           ],
         },
         { merge: true }
       );
       showAlert(`Game added to your catalogue`, 'success');
-      // console.log('Game added to wishlist successfully');
-      // Show success message or update UI
     } catch (error) {
-      // console.error('Error adding game to wishlist:', error);
       showAlert(`Could not add game to catalogue`, 'danger');
-      // Show error message or handle error
     }
   };
+
 
   const showAlert = (message, type) => {
     const alertContainer = document.getElementById('alertContainer');

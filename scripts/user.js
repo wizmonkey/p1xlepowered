@@ -4,13 +4,20 @@ import {
   setDoc,
   getDoc,
   doc,
+  ref,
+  storage,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
   onAuthStateChanged,
   signOut,
 } from './fireAuth.js';
 
 // Check if elements exist before accessing them
-const displayName = document.getElementById('displayName');
+const displayName = document.querySelectorAll('.displayName');
 const displayEmail = document.getElementById('displayEmail');
+const displayJoinDate = document.getElementById('displayJoinDate');
+const displayAvatar = document.querySelectorAll('.avatar');
 const logOutButton = document.getElementById('logOut');
 
 const showAlert = (message, type) => {
@@ -37,8 +44,27 @@ const displayUserInfo = async (user) => {
     const userDoc = await getDoc(doc(db, 'users', user.uid));
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      if (displayName) displayName.innerText = userData.username;
+      if (displayName)
+        displayName.forEach((nameElement) => {
+          nameElement.innerHTML = userData.username;
+        });
       if (displayEmail) displayEmail.innerText = userData.email;
+
+      if (displayJoinDate) {
+        const joinDate = userData.joinDate.toDate();
+        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+        const formattedJoinDate = joinDate.toLocaleDateString('en-US', options);
+        displayJoinDate.innerText = formattedJoinDate;
+      }
+       if (displayAvatar) {
+        displayAvatar.forEach((avatarElement) => {
+          avatarElement.src = userData.avatarURL;
+          avatarElement.onerror = () => {
+            avatarElement.src = '../assets/noImg.jpg';
+          }
+        })
+      }
+    
     }
   } catch (error) {
     console.error('Error fetching user data:', error);
@@ -46,13 +72,56 @@ const displayUserInfo = async (user) => {
   }
 };
 
+const avatarInput = document.getElementById('avatarInput');
+if (avatarInput) {
+
+  avatarInput.addEventListener('change', async (event) => {
+    const file = event.target.files[0];
+    const user = auth.currentUser;
+    if (user) {
+      await uploadUserAvatar(user.uid, file);
+    } else {
+      console.log('No user is signed in.');
+    }
+  });
+}
+
+const uploadUserAvatar = async (userId, file) => {
+  try {
+    // Create a reference to the location where the file should be stored in Storage
+    const storageRef = ref(storage, `avatars/${userId}/avatar.jpg`); // Assuming avatar.jpg as the filename
+
+    // Upload file to Firebase Storage
+    const snapshot = await uploadBytes(storageRef, file);
+
+    // Get the download URL for the file
+    const downloadURL = await getDownloadURL(snapshot.ref);
+
+    // Update user document with the download URL
+    await setDoc(doc(db, 'users', userId), {
+      avatarURL: downloadURL
+    }, { merge: true });
+
+    // Show alert for successful upload
+    showAlert('User avatar uploaded successfully, reload page to see changes', 'success');
+
+    // reload page to display the uploaded avatar
+    // location.reload()
+  } catch (error) {
+    console.error('Error uploading user avatar:', error);
+    showAlert('Error uploading user avatar', 'danger');
+  }
+};
+
+
 const checkAuthState = async () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       displayUserInfo(user);
-      displayUserLists(user.uid); // Call the function to display user's lists
+      displayUserLists(user.uid);
     } else {
-      console.log('No user is signed in.');
+      console.log('User is not signed in.');
+      window.location.href = 'auth.html';
     }
   });
 };
@@ -81,6 +150,27 @@ const displayUserLists = async (userId) => {
     displayList(userData.completed, 'completed', userId);
     displayList(userData.playing, 'playing', userId);
 
+    // Sort the lists by dateAdded (most recent first)
+    const sortedWishlist = [...userData.wishlist].sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+    const sortedCompleted = [...userData.completed].sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+    const sortedPlaying = [...userData.playing].sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+
+    // Extract the most recent games from each list
+    const wishlistGames = sortedWishlist.slice(0, 3);
+    const completedGames = sortedCompleted.slice(0, 3);
+    const playingGames = sortedPlaying.slice(0, 3);
+
+    // Clear the dashboard container before displaying new games
+    const dashboardContainer = document.getElementById('dashboard');
+    if (dashboardContainer) {
+      dashboardContainer.innerHTML = '';
+    }
+
+    // Display the dashboard games for each list
+    displayDashboardGames(playingGames, 'Currently Playing', userId);
+    displayDashboardGames(wishlistGames, 'Games to Play', userId);
+    displayDashboardGames(completedGames, 'Recently Completed', userId);
+
     const allGames = [
       ...userData.wishlist.map((game) => ({ ...game, list: 'wishlist' })),
       ...userData.completed.map((game) => ({ ...game, list: 'completed' })),
@@ -88,10 +178,106 @@ const displayUserLists = async (userId) => {
     ];
 
     displayAllGames(allGames, userId);
+
+    // Calculate and update the allGamesCount
+    const totalGames = allGames.length;
+    document.querySelectorAll(`.totalGames`).forEach((countElement) => {
+      countElement.innerHTML = totalGames;
+    });
+
   } catch (error) {
     console.error('Error fetching lists:', error);
     showAlert('Error fetching lists', 'danger');
   }
+};
+
+const displayDashboardGames = (games, listName, userId) => {
+  const dashboardContainer = document.getElementById('dashboard');
+  if (!dashboardContainer) return;
+
+  // Only display the list if there are games in it
+  if (games.length === 0) return;
+
+  // Create a title for the list
+  const title = document.createElement('h2');
+  title.innerText = `${listName}`;
+  dashboardContainer.appendChild(title);
+
+  // Create a row to contain the cards
+  const row = document.createElement('div');
+  row.classList.add('row', 'justify-content-start');
+  dashboardContainer.appendChild(row);
+
+  games.forEach((game) => {
+    // Create a column to contain each card
+    const col = document.createElement('div');
+    col.classList.add('col-md-4', 'my-3'); // Use col-md-6 for two cards per row on larger screens
+
+    // Calculate time difference
+    const dateAdded = new Date(game.dateAdded);
+    const now = new Date();
+    const timeDifference = now.getTime() - dateAdded.getTime();
+    const minutes = Math.floor(timeDifference / (1000 * 60));
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+
+    // Format time difference
+    let timeAgo;
+    if (months > 0) {
+      timeAgo = `${months} month${months > 1 ? 's' : ''} ago`;
+    } else if (days > 0) {
+      timeAgo = `${days} day${days > 1 ? 's' : ''} ago`;
+    } else if (hours > 0) {
+      timeAgo = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else {
+      timeAgo = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    }
+    const formattedDateAdded = dateAdded.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    // Create the card
+    const card = document.createElement('div');
+    card.classList.add('card', 'dash-card', 'rnd', 'dark-bg');
+    const cardImage = document.createElement('img');
+    cardImage.src = game.backgroundImage;
+    cardImage.classList.add('card-img-top', 'dash-card-img-top',  'rnd', 'bg-dark');
+    card.appendChild(cardImage);
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body', 'dash-card-body');
+    const cardTitle = document.createElement('h5');
+    cardTitle.classList.add('card-title', 'text-light', 'p-0');
+    cardTitle.innerText = game.gameName;
+    const cardText = document.createElement('p');
+    cardText.classList.add('card-text', 'text-light', 'p-0');
+    cardText.innerText = `Added ${timeAgo}`;
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardText);
+    card.appendChild(cardBody);
+    col.appendChild(card);
+    row.appendChild(col);
+
+
+    // Add click event listener to open modal
+    col.addEventListener('click', () => {
+      // Fill modal content with game details
+      const modalTitle = document.getElementById('gameModalLabel');
+      const modalImg = document.querySelector('.modal-img');
+      const modalDate = document.querySelector('.modal-date');
+      const modalStatus = document.querySelector('.modal-status');
+      const gamePage = document.querySelector('.game-page');
+
+      modalTitle.innerText = game.gameName;
+      modalImg.src = game.backgroundImage;
+      modalDate.innerText = formattedDateAdded;
+      modalStatus.innerText = listName;
+      gamePage.href = `game.html?id=${game.gameId}`;
+
+      // Show modal
+      const gameModal = new bootstrap.Modal(document.getElementById('gameModal'));
+      gameModal.show();
+    });
+    
+  });
 };
 
 const displayList = (list, containerId, userId) => {
@@ -139,7 +325,9 @@ const displayList = (list, containerId, userId) => {
             : ''
         }
         <!-- Delete button -->
-        <span class="delete-btn" data-id="${item.gameId}" data-list="${containerId}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Game">
+        <span class="delete-btn" data-id="${
+          item.gameId
+        }" data-list="${containerId}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Game">
         <i class="bi bi-x-circle mx-1 list-icon" style="color: red;" 
         onmouseover="this.className = 'bi bi-x-circle-fill mx-1 list-icon'" 
         onmouseleave="this.className = 'bi bi-x-circle mx-1 list-icon'"></i>
@@ -147,9 +335,11 @@ const displayList = (list, containerId, userId) => {
       </div>`;
     container.appendChild(listItem);
 
-    document.querySelectorAll(`.${containerId}-count`).forEach((countElement) => {
-      countElement.innerHTML = list.length;
-    });
+    document
+      .querySelectorAll(`.${containerId}-count`)
+      .forEach((countElement) => {
+        countElement.innerHTML = list.length;
+      });
   });
 
   // Add event listeners for move buttons
@@ -173,19 +363,21 @@ const displayList = (list, containerId, userId) => {
     });
   });
 
-    // Add event listeners for delete buttons
-    const deleteButtons = container.querySelectorAll('.delete-btn');
-    deleteButtons.forEach((button) => {
-      new bootstrap.Tooltip(button); // Initialize tooltip for each button
-      button.addEventListener('click', async (event) => {
-        const gameId = button.getAttribute('data-id'); // Accessing data from button dataset
-        const listName = button.getAttribute('data-list');
-        const confirmDelete = confirm('Are you sure you want to delete this game?');
-        if (confirmDelete) {
-          await deleteGame(userId, gameId, listName);
-        }
-      });
+  // Add event listeners for delete buttons
+  const deleteButtons = container.querySelectorAll('.delete-btn');
+  deleteButtons.forEach((button) => {
+    new bootstrap.Tooltip(button); // Initialize tooltip for each button
+    button.addEventListener('click', async (event) => {
+      const gameId = button.getAttribute('data-id'); // Accessing data from button dataset
+      const listName = button.getAttribute('data-list');
+      const confirmDelete = confirm(
+        'Are you sure you want to delete this game?'
+      );
+      if (confirmDelete) {
+        await deleteGame(userId, gameId, listName);
+      }
     });
+  });
 };
 
 const deleteGame = async (userId, gameId, containerId) => {
@@ -197,12 +389,14 @@ const deleteGame = async (userId, gameId, containerId) => {
     if (!userData[containerId]) return;
 
     // Remove game from the list
-    const updatedList = userData[containerId].filter(item => item.gameId !== gameId);
+    const updatedList = userData[containerId].filter(
+      (item) => item.gameId !== gameId
+    );
 
     // Update Firestore
     await setDoc(userDocRef, {
       ...userData,
-      [containerId]: updatedList
+      [containerId]: updatedList,
     });
 
     showAlert('Game deleted successfully', 'success');
@@ -212,7 +406,6 @@ const deleteGame = async (userId, gameId, containerId) => {
     showAlert('Error deleting game', 'danger');
   }
 };
-
 
 const displayAllGames = (allGames, userId) => {
   const container = document.getElementById('allGames');
@@ -253,16 +446,16 @@ const displayAllGames = (allGames, userId) => {
               : ''
           }
           <!-- Delete button -->
-          <span class="delete-btn" data-id="${item.gameId}" data-list="${item.list}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Game">
+          <span class="delete-btn" data-id="${item.gameId}" data-list="${
+      item.list
+    }" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Game">
           <i class="bi bi-x-circle mx-1 list-icon" style="color: red;" 
           onmouseover="this.className = 'bi bi-x-circle-fill mx-1 list-icon'" 
           onmouseleave="this.className = 'bi bi-x-circle mx-1 list-icon'"></i>
           </span>
         </div>`;
     container.appendChild(listItem);
-    document.querySelectorAll(`.allGamesCount`).forEach((countElement) => {
-      countElement.innerHTML = allGames.length;
-    });  });
+  });
 
   // Add event listeners for move buttons
   const moveButtons = container.querySelectorAll('.move-btn');
@@ -289,7 +482,9 @@ const displayAllGames = (allGames, userId) => {
     button.addEventListener('click', async (event) => {
       const gameId = button.getAttribute('data-id'); // Accessing data from button dataset
       const listName = button.getAttribute('data-list');
-      const confirmDelete = confirm('Are you sure you want to delete this game?');
+      const confirmDelete = confirm(
+        'Are you sure you want to delete this game?'
+      );
       if (confirmDelete) {
         await deleteGame(userId, gameId, listName);
       }
@@ -326,7 +521,10 @@ const moveGameBetweenLists = async (userId, game, fromList, toList) => {
     );
 
     // Add game to the new list
-    const updatedToList = [...userData[toList], game];
+    const updatedToList = [
+      ...userData[toList],
+      { ...game, dateAdded: new Date().toISOString() }
+    ];
 
     // Update Firestore
     await setDoc(userDocRef, {
@@ -343,12 +541,172 @@ const moveGameBetweenLists = async (userId, game, fromList, toList) => {
   }
 };
 
+// EXPORTING LISTS ////////////////////////////////////////////////////////////////////////
+////function to export lists as JSON
+const exportListsAsJSON = async (userId) => {
+  try {
+    const userDocRef = doc(db, 'users', userId);
+    const userSnapshot = await getDoc(userDocRef);
+    const userData = userSnapshot.data();
 
+    const exportData = {
+      user: `${userData.username}`,
+      // comment: `Exported from :${userId}`,
+      wishlist: userData.wishlist || [],
+      playing: userData.playing || [],
+      completed: userData.completed || [],
+    };
+
+    const jsonString = JSON.stringify(exportData, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${userData.username}-exported-lists.json`;
+    // a.download = `${userId}-exported-lists`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Error exporting lists as JSON', error);
+    showAlert('Error exporting lists as JSON', 'danger');
+  }
+};
+
+//function to export lists as CSV
+const exportListsAsCSV = async (userId) => {
+  try {
+    const userDocRef = doc(db, 'users', userId);
+    const userSnapshot = await getDoc(userDocRef);
+    const userData = userSnapshot.data();
+
+    const wishlist = userData.wishlist || [];
+    const playing = userData.playing || [];
+    const completed = userData.completed || [];
+
+    let csvContent = `Exported from user: ${userData.username}\n\n`;
+    csvContent += 'Wishlist, Playing, Completed \n';
+
+    const maxLength = Math.max(
+      wishlist.length,
+      completed.length,
+      playing.length
+    );
+
+    for (let i = 0; i < maxLength; i++) {
+      const wishlistGame = wishlist[i] ? wishlist[i].gameName : '';
+      const playingGame = playing[i] ? playing[i].gameName : '';
+      const completedGame = completed[i] ? completed[i].gameName : '';
+      csvContent += `${wishlistGame},${playingGame}, ${completedGame}\n`;
+    }
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `exported-lists-${userData.username}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Error exporting lists as CSV:', error);
+    showAlert(
+      'Something went wrong while deleting lists, please try again ',
+      'danger'
+    );
+  }
+};
+
+//get the buttons for exporting
+const exportAsJSONBtn = document.getElementById('exportJSON');
+if (exportAsJSONBtn) {
+  exportAsJSONBtn.addEventListener('click', () => {
+    const userId = auth.currentUser.uid;
+    exportListsAsJSON(userId);
+  });
+}
+const exportAsCSVBtn = document.getElementById('exportCSV');
+if (exportAsCSVBtn) {
+  exportAsCSVBtn.addEventListener('click', () => {
+    const userId = auth.currentUser.uid;
+    exportListsAsCSV(userId);
+  });
+}
+
+//DELETING LISTS AND ACCOUNT ////////////////////////////////////////////////////////////////
+//function to delete all lists
+const deleteAllLists = async (userId) => {
+  try {
+    const userDocRef = doc(db, 'users', userId);
+    userSnapshot = await getDoc(userDocRef);
+    const userData = userSnapshot.data();
+
+    //set the lists to an empty arrray
+    await setDoc(userDocRef, {
+      ...userData,
+      wishlist: [],
+      playing: [],
+      completed: [],
+    });
+
+    showAlert('All lists have been deleted successfully', 'success');
+    displayUserLists(userId);
+  } catch (error) {
+    console.error('Error deleting lists', error);
+    showAlert(
+      'Something went wrong while deleting lists, please try again',
+      'danger'
+    );
+  }
+};
+//get the button for deleting lists
+const deleteAllListsButton = document.getElementById('deleteAllLists');
+if (deleteAllListsButton) {
+  deleteAllListsButton.addEventListener('click', () => {
+    const userId = auth.currentUser.uid;
+    const confirmDelete = confirm(
+      'Are you sure you want to delete all lists? This action cannot be undone.'
+    );
+    if (confirmDelete) {
+      deleteAllLists(userId);
+    }
+  });
+}
+
+//funtion to delete the user account permanently
+const deleteAccount = async (userId) => {
+  try {
+    const user = auth.currentUser;
+    //delte user document from firestore
+    await db.collection('users').doc(user.uid).delete();
+    //delete user account from firebase auth
+    await user.delete();
+    //ridirect to auth page
+    window.location.href = 'auth.html';
+  } catch (error) {
+    console.error('Error deleting user account', error);
+    showAlert('Error deleting user account', 'danger');
+  }
+};
+//get the delete user button and show alert when clicked
+const deleteAcountBtn = document.getElementById('deleteAccount');
+if (deleteAcountBtn) {
+  deleteAcountBtn.addEventListener('click', () => {
+    const confirmDelete = confirm(
+      `Wait! Do you really want to delete your account? This action is permanent and cannot be undone.`
+    );
+    if (confirmDelete) {
+      deleteAccount();
+    }
+  });
+}
 
 if (logOutButton) {
   logOutButton.addEventListener('click', userSignOut);
 }
-
-
 
 checkAuthState();
