@@ -6,7 +6,7 @@ const search = document.getElementById('gameSearch');
 search.addEventListener('input', searchGame);
 function searchGame(event) {
   event.preventDefault(event); // Prevent form from submitting
-  const apiKey = process.env.RAWG_API_KEY;
+  const apiKey = '31e1a5687f25403298fa63ffe00ddff9';
   const name = search.value.toLowerCase().trim();
 
   if (name.length > 2) {
@@ -73,7 +73,7 @@ function displayResults(games) {
       const releaseDate = game.released?.split('-')[0] || '';
 
       return `
-      <a href="game.html?id=${game.id}" class="text-decoration-none text-light" target="_blank">
+      <a href="game.html?id=${game.id}" class="text-decoration-none text-light">
         <div class="rnd search-card row mb-2 brdr" style="max-height:150px">
           <div class="d-flex g-0">
             <div class="p-1">

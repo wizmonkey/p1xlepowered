@@ -1,7 +1,7 @@
 import { auth, db, setDoc, getDoc, doc } from './firebase.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const apiKey = process.env.RAWG_API_KEY;
+  const apiKey = '31e1a5687f25403298fa63ffe00ddff9';
   const urlParams = new URLSearchParams(window.location.search);
   const gameId = urlParams.get('id');
   const base = document.getElementById('base');
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editionItemContainer.innerHTML = `
         <a href="game.html?id=${
           edition.id
-        }" class="text-decoration-none text-light" target="_blank">
+        }" class="text-decoration-none text-light">
         <div class="rnd edition-card row brdr">
         <div class="d-flex g-0">
             <div class="p-1">
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
         parentItemContainer.innerHTML = `
         <a href="game.html?id=${
           parent.id
-        }" class="text-decoration-none text-light" target="_blank">
+        }" class="text-decoration-none text-light">
         <div class="rnd edition-card row brdr">
         <div class="d-flex g-0">
             <div class="p-1">
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
         seriesItemContainer.innerHTML = `
           <a href="game.html?id=${
             seriesItem.id
-          }" class="text-decoration-none text-light" target="_blank">
+          }" class="text-decoration-none text-light">
             <div class="rnd edition-card row brdr" style="max-height:200px">
               <div class="d-flex g-0">
                 <div class="p-1">
@@ -505,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         { merge: true }
       );
-      showAlert(`Game added to your catalogue`, 'success');
+      showAlert(`Game added to your catalogue. <a href="index.html" class="text-primary link-underline-primary">Return to dashboard</a>`, 'success');
     } catch (error) {
       showAlert(`Could not add game to catalogue`, 'danger');
     }

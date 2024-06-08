@@ -6,7 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged
-} from './fireAuth.js';
+} from './firebase.js';
 
 const userName = document.getElementById('username');
 const userEmail = document.getElementById('email');
@@ -47,7 +47,7 @@ const userSignUp = async () => {
   createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
     .then(async (userCredential) => {
       const user = userCredential.user;
-      console.log(user);
+      // console.log(user);
       showAlert('Account Created', 'success');
 
       //get the current date
@@ -66,7 +66,7 @@ const userSignUp = async () => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      // console.log(errorCode, errorMessage);
 
       switch (errorCode) {
         case 'auth/email-already-in-use':
@@ -106,7 +106,7 @@ const userSignIn = async () => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      // console.log(errorCode, errorMessage);
 
       switch (errorCode) {
         case 'auth/invalid-credential':

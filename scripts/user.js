@@ -146,6 +146,22 @@ const displayUserLists = async (userId) => {
     if (!userData.completed) userData.completed = [];
     if (!userData.playing) userData.playing = [];
 
+    const noGames = userData.wishlist.length === 0 && userData.completed.length === 0 && userData.playing.length === 0;
+    if (noGames) {
+      // Display a message prompting the user to add games
+      const dashboardContainer = document.getElementById('dashboard');
+      if (dashboardContainer) {
+        dashboardContainer.innerHTML = 
+        `<div class="py-3">
+        <h3 class="text-center">You have not added any games yet. Add some games to see them here!</h3> 
+        <button class="btn btn-light w-100 mt-2 fw-bold" data-bs-toggle="modal"
+        data-bs-target="#searchModal">ADD GAMES</button>
+        </div>
+        `;
+      }
+      return;
+    }
+
     displayList(userData.wishlist, 'wishlist', userId);
     displayList(userData.completed, 'completed', userId);
     displayList(userData.playing, 'playing', userId);
@@ -167,9 +183,9 @@ const displayUserLists = async (userId) => {
     }
 
     // Display the dashboard games for each list
-    displayDashboardGames(playingGames, 'Currently Playing', userId);
     displayDashboardGames(wishlistGames, 'Games to Play', userId);
     displayDashboardGames(completedGames, 'Recently Completed', userId);
+    displayDashboardGames(playingGames, 'Currently Playing', userId);
 
     const allGames = [
       ...userData.wishlist.map((game) => ({ ...game, list: 'wishlist' })),
