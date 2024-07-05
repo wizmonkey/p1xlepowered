@@ -1,7 +1,7 @@
 import { auth, db, setDoc, getDoc, doc } from './firebase.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const apiKey = '8a972d161c664d8696e1c01b930e9641';
+  const apiKey = '073e39c421ce4638ba42fea55efba786';
   const urlParams = new URLSearchParams(window.location.search);
   const gameId = urlParams.get('id');
   const base = document.getElementById('base');
