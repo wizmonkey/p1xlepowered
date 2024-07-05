@@ -6,7 +6,7 @@ const search = document.getElementById('gameSearch');
 search.addEventListener('input', searchGame);
 function searchGame(event) {
   event.preventDefault(event); // Prevent form from submitting
-  const apiKey = '31e1a5687f25403298fa63ffe00ddff9';
+  const apiKey = '8a972d161c664d8696e1c01b930e9641';
   const name = search.value.toLowerCase().trim();
 
   if (name.length > 2) {
